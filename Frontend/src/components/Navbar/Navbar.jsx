@@ -5,8 +5,12 @@ import { Link } from "react-router-dom";
 import { StoreContext } from "../../context/storeContext";
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("Home");
-  const { getTotalCartAmount } = useContext(StoreContext);
+  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
 
+  const handleLogout = () => {
+    setToken("");
+    localStorage.removeItem("token");
+  };
   const menuLinks = [
     { name: "Home", className: menu === "Home" ? "active" : "", href: "" },
     {
@@ -51,7 +55,11 @@ const Navbar = ({ setShowLogin }) => {
             <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
           </Link>
         </div>
-        <button onClick={() => setShowLogin(true)}>Sign in</button>
+        {token || localStorage.getItem("token") ? (
+          <button onClick={() => handleLogout()}>Log out</button>
+        ) : (
+          <button onClick={() => setShowLogin(true)}>Sign in</button>
+        )}
       </div>
     </div>
   );
