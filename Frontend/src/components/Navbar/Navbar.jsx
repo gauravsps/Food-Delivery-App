@@ -55,8 +55,21 @@ const Navbar = ({ setShowLogin }) => {
             <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
           </Link>
         </div>
-        {token || localStorage.getItem("token") ? (
-          <button onClick={() => handleLogout()}>Log out</button>
+        {token ? (
+          <div className="navbar-profile">
+            <img src={assets.profile_icon} alt="" />
+            <ul className="nav-profile-dropdown">
+              <li>
+                <img src={assets.bag_icon} alt="" />
+                Orders
+              </li>
+              <hr />
+              <li onClick={handleLogout}>
+                <img src={assets.logout_icon} alt="" />
+                Logout
+              </li>
+            </ul>
+          </div>
         ) : (
           <button onClick={() => setShowLogin(true)}>Sign in</button>
         )}

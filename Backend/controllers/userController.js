@@ -8,8 +8,7 @@ import validator from "validator";
 const loginUser = async (req, res) => {
   console.log(req.body , "chech rewq");
   const { email, password } = req.body;
-
-
+  
   try {
     const user = await userModel.findOne({ email });
     if (!user) {
